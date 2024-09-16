@@ -1,22 +1,14 @@
-# This is markdown
+# Web Design is fun!
 
 
-This is optomized for reading
+I like web design so far and I aint gonna leave!
+
+I had a problem today due to my own incompetence.
+
+## Isaac
+
+Isaac helped me a lot too so thank him!
 
 
-## Mark Formatting
-
-blahblahblahblahblahbalhablalhlalhdll
-
-### List
-
-this is a list example of a list
-
-- first
-- second
-- third
-- fourth
-
-#### Paragraphs
 
 
