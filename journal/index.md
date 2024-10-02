@@ -1,0 +1,2 @@
+- [My 1st Journal](1Journal.md)
+- [My 2nd Journal](2Journal.md)
