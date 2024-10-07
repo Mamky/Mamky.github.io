@@ -1,10 +1,10 @@
 <a href="journal/">Click here to read my journal</a>
 
 
-#PIG!
+# PIG!
 
 
-#Today was a good class!!
+# Today was a good class!!
 
 
 I did the send and tried my best and with effort and help I DID IT! 
