@@ -1,6 +1,5 @@
-<a href="1Journal.md/">Click here to read my journal</a>
+<a href="journal/">Click here to read my journal</a>
 
-<a href="2Journal.md/">Click here to read my journal</a>
 
 #PIG!
 
