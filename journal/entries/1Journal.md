@@ -1,4 +1,14 @@
-#Isacc helped me in class!!
+# Is this markdown??!?!
 
+1. first
+2. second
+3. third
+4. fourth
 
-Class was great today and Isacc helped me in it. I had so much fun.
+## Markdown is awesome!!
+
+- list 1
+- list 2
+- list 3
+
+**BOLD**
