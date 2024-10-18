@@ -23,16 +23,17 @@ This is a markdown paragraph hehe haha
 
 My favorite cats
 
-| Name   | Facts                       |
-| ----   | -------                     |
-| Sylvie | My cat, cute and the best   |
-| ------ |  ------------------------   |
-| Roxi   | My other cat the best aswell|
-| -----  | ------                      |
+| Name   | Facts                         |
+| ----   | -------                       |
+| Sylvie | My cat, cute and the best     |
+| ------ |  ------------------------     |
+| Roxi   | My other cat,the best as well | 
+| -----  | ------                        |
 
 
 
 
+![Cat picture](cat1.avif)
 
 
 
