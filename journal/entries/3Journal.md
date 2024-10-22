@@ -5,14 +5,14 @@ This is a markdown paragraph hehe haha
 1. 1
 2. 2
 3. 3
-4. 
+4. 4
 
 - list?
 - list??
-- LIST?
-* list.
+* LIST?
+* lis... as well?!?.
 
- * sub-list?
+ *  sub-list?
 
 ## Now lets do links
 
@@ -37,11 +37,15 @@ My favorite cats
 
 
 
+## Equations
 
 
+$y = mx + b$
 
 
+$f(x) = x^2$
 
+$f(x) = \frac {3}{4}$
 
 
 
