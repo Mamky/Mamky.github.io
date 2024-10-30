@@ -1,6 +1,6 @@
 # Wordpress
 
-[My Wordpress website](mamkycom.wordpress.com)
+[My Wordpress website](https://mamkycom.wordpress.com/)
 
 I looked at the aps site and some game sites like classroom 6x and I took their image presentations and even added a map to make it look like game websites. I also kept things symmetrical and similar in style like classroom 6x and my favorite site mangadex. I think I did ok but couldv'e improved if I locked in.
 
