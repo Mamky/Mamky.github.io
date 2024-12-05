@@ -1,11 +1,27 @@
-	body{background-color:cornsilk;width:350px}
-        
-	header{background-color:wheat}
-        
-	td,th,table,h1,h2{border:2px solid;
-        
-	border-collapse;collapse;}
-	section{background-color:wheat}
+body{
+	background-color:cornsilk;width:350px;
+}
+body{
 	
-	ul{background-color:wheat;width:55px}
+	color:rosybrown;
+}
+
+a{
+	color:rosybrown;
+
+}
+header{
+	background-color:wheat;
+}
+        
+td,th,table,h1,h2{
+	border:2px solid;
+}
+section{
+	background-color:wheat;
+}
+	
+ul{
+	background-color:wheat;width:55px;
+}
 
