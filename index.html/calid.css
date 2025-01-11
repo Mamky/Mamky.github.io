@@ -1,12 +1,8 @@
-body, h1{
-	 background-color:cornsilk;width:350px;
-	color:rosybrown;
-}
-a,hr{
+a,p,h1{
 	color:rosybrown;
 
 }
-header{
+header,body{
 	background-color:wheat;
 }
 
@@ -16,7 +12,9 @@ header{
 	grid-template-columns: 1fr 2fr 1fr;
 	height:80vh;
 	gap:10px;		
+	
 }
+
 
 #item5{
 	background-color:wheat;
@@ -24,7 +22,7 @@ header{
 	grid-column: 2/3;
 	text-align:center;
 	font-size:1em;
-
+	border:2px solid black;
 
 }
 #item2
@@ -34,7 +32,7 @@ header{
 	grid-column: 3;
 	text-align:center;
 	font-size:1em;
-
+	border:2px solid black;
 
 }
 #item3
@@ -44,7 +42,7 @@ header{
 	grid-column:1;
 	text-align:center;
 	font-size:1em;
-
+	border:2px solid black;
 
 }
 
@@ -55,6 +53,7 @@ header{
 	grid-row: 1;
 	text-align:center;
 	font-size:2em;
+	border:2px solid black;
 }
 #item1
 {
@@ -63,4 +62,5 @@ header{
 	grid-row:3;
 	text-align:center;
 	font-size:1em;
+	border:2px solid black;
 }
