@@ -1,6 +1,9 @@
 a,p,h1{
 	color:rosybrown;
-
+}
+h1,p,img,a{
+	border:2px solid black;	
+	
 }
 header,body{
 	background-color:wheat;
@@ -8,7 +11,7 @@ header,body{
 
 #grid{
 	display:grid;
-	grid-template-rows: 1fr 2fr 1fr;
+	grid-template-rows: 1fr 2fr 1fr 1fr;
 	grid-template-columns: 1fr 2fr 1fr;
 	height:80vh;
 	gap:10px;		
@@ -22,8 +25,7 @@ header,body{
 	grid-column: 2/3;
 	text-align:center;
 	font-size:1em;
-	border:2px solid black;
-
+	
 }
 #item2
 {
@@ -32,7 +34,7 @@ header,body{
 	grid-column: 3;
 	text-align:center;
 	font-size:1em;
-	border:2px solid black;
+
 
 }
 #item3
@@ -42,7 +44,7 @@ header,body{
 	grid-column:1;
 	text-align:center;
 	font-size:1em;
-	border:2px solid black;
+
 
 }
 
@@ -53,7 +55,7 @@ header,body{
 	grid-row: 1;
 	text-align:center;
 	font-size:2em;
-	border:2px solid black;
+
 }
 #item1
 {
@@ -62,5 +64,14 @@ header,body{
 	grid-row:3;
 	text-align:center;
 	font-size:1em;
-	border:2px solid black;
+
+}
+#item6
+{
+	background-color:wheat;
+	grid-column: 2/3;
+	grid-row:14;
+	text-align:center;
+	font-size:1em;
+	
 }
