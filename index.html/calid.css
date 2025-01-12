@@ -1,8 +1,8 @@
 a,p,h1{
 	color:rosybrown;
 }
-h1,p,img,a{
-	border:2px solid black;	
+img,h1,a,p{
+	border:2px solid rosybrown;	
 	
 }
 header,body{
@@ -12,7 +12,7 @@ header,body{
 #grid{
 	display:grid;
 	grid-template-rows: 1fr 2fr 1fr 1fr;
-	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	height:80vh;
 	gap:10px;		
 	
@@ -21,8 +21,8 @@ header,body{
 
 #item5{
 	background-color:wheat;
-	grid-row: 2/3;
-	grid-column: 2/3;
+	grid-row: 3;
+	grid-column: 2/4;
 	text-align:center;
 	font-size:1em;
 	
@@ -30,8 +30,8 @@ header,body{
 #item2
 {
 	background-color:wheat;
-	grid-row: 2;
-	grid-column: 3;
+	grid-row: 3;
+	grid-column: 4;
 	text-align:center;
 	font-size:1em;
 
@@ -40,7 +40,7 @@ header,body{
 #item3
 {
 	background-color:wheat;
-	grid-row: 2;
+	grid-row: 3;
 	grid-column:1;
 	text-align:center;
 	font-size:1em;
@@ -51,8 +51,8 @@ header,body{
 #item4
 {
 	background-color:wheat;
-	grid-column: 1/4;
-	grid-row: 1;
+	grid-column: 1/5;
+	grid-row: 2;
 	text-align:center;
 	font-size:2em;
 
@@ -60,8 +60,8 @@ header,body{
 #item1
 {
 	background-color:wheat;
-	grid-column: 1/4;
-	grid-row:3;
+	grid-column: 1/5;
+	grid-row:4;
 	text-align:center;
 	font-size:1em;
 
@@ -69,9 +69,16 @@ header,body{
 #item6
 {
 	background-color:wheat;
-	grid-column: 2/3;
-	grid-row:14;
+	grid-column: 1;
+	grid-row:1;
 	text-align:center;
-	font-size:1em;
-	
+	font-size:3em;
+}
+#item7
+{
+	background-color:wheat;
+	grid-column:2;
+	grid-row:1;
+	text-align:center;
+	font-size:3em;
 }
