@@ -1,7 +1,7 @@
-a,p,h1{
+a,p,h1,ul{
 	color:rosybrown;
 }
-img,h1,a,p{
+ul,img,h1,a,p{
 	border:2px solid rosybrown;	
 	
 }
