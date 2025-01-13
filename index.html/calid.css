@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
 p,h1,ul,a{
 	color:rosybrown;
 }
-ul,img,h1,a,p{
+h1{
+	font-family: Arial, Helvetica, sans-serif;
+}
+p,ul,a{
+	font-family: "Caveat", serif;  
+}
+
+ul,img,h1,p{
 	border:2px solid rosybrown;	
 	
 }
@@ -54,6 +63,8 @@ header,body{
 	grid-column: 1/5;
 	grid-row: 2;
 	text-align:center;
+	margin-top: 30px;
+	margin-bottom:30px;
 	font-size:2em;
 
 }
@@ -73,6 +84,7 @@ header,body{
 	grid-row:1;
 	text-align:center;
 	font-size:3em;
+	border:2px solid rosybrown;
 }
 #item7
 {
@@ -81,12 +93,40 @@ header,body{
 	grid-row:1;
 	text-align:center;
 	font-size:3em;
+	border:2px solid rosybrown;
 }
 #item8
 {
 	background-color:wheat;
-	grid-column:1/3;
+	grid-column:1/2;
 	grid-row:3;
 	text-align:center;
-	font-size:3em;
+
+}
+#item9
+{
+	background-color:wheat;
+	grid-column:3/5;
+	grid-row:3;
+	text-align:center;
+	margin-top:5px
+
+}
+#item10
+{
+	background-color:wheat;
+	grid-column:4;
+	grid-row:3;
+	text-align:center;
+	margin-top:5px
+
+}
+#item1
+{
+	background-color:wheat;
+	grid-column:1/5;
+	grid-row:4;
+	text-align:center;
+	margin-top:5px
+
 }
