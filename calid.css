@@ -20,14 +20,19 @@ header,body{
 
 #grid{
 	display:grid;
-	grid-template-rows: 1fr 2fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	height:80vh;
 	gap:10px;		
 	
 }
 
-
+#item11{
+	background-color:wheat;
+	grid-row:4;
+	grid-column: 4;
+	text-align:center;
+	font-size:18px;
 #item5{
 	background-color:wheat;
 	grid-row: 3;
@@ -85,6 +90,8 @@ header,body{
 	text-align:center;
 	font-size:3em;
 	border:2px solid rosybrown;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 #item7
 {
@@ -94,6 +101,8 @@ header,body{
 	text-align:center;
 	font-size:3em;
 	border:2px solid rosybrown;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 #item8
 {
