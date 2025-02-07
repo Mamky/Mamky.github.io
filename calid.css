@@ -33,6 +33,7 @@ header,body{
 	grid-column: 4;
 	text-align:center;
 	font-size:18px;
+}
 #item5{
 	background-color:wheat;
 	grid-row: 3;
