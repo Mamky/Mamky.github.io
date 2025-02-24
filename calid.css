@@ -18,6 +18,7 @@ header,body{
 	background-color:wheat;
 }
 
+
 #grid{
 	display:grid;
 	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -139,4 +140,12 @@ header,body{
 	text-align:center;
 	margin-top:5px
 
+}
+#item0
+{
+	background-color:wheat;
+        grid-column:4/5;
+        grid-row:1;
+        text-align:center;
+        margin-top:5px
 }
