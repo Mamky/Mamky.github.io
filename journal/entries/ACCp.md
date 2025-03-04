@@ -1,7 +1,7 @@
 # **ACC Cosmetology Website**
 
-[Website](https://mamky.github.io/SharedRepo.github.io/index.html)
-[Repo](https://github.com/Mamky/SharedRepo.github.io)
+- [Website](https://mamky.github.io/SharedRepo.github.io/index.html)
+- [Repo](https://github.com/Mamky/SharedRepo.github.io)
 ![photo1](photo1.jpg)
 ![photo2](photo2.jpg)
 My form was a POST method form and the input types I used were text, tel, email, and radio. 
