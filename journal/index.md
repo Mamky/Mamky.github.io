@@ -3,4 +3,4 @@
 - [My 3rd Journal](entries/R3Journal.md)
 - [More Markdown](entries/3Journal.md)
 - [Wordpress site](entries/Wordpress.md)
-  [Cosmetology Page](entries/ACCp.md)
+- [Cosmetology Page](entries/ACCp.md)
