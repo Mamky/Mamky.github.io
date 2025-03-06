@@ -94,6 +94,7 @@ header,body{
 	border:2px solid rosybrown;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	transition: background-color 0.3s ease-in-out;
 }
 #item7
 {
@@ -105,6 +106,11 @@ header,body{
 	border:2px solid rosybrown;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	transition: background-color 0.3s ease-in-out;
+}
+
+#item7:hover, #item6:hover {
+    background-color: #faeed9;
 }
 #item8
 {
