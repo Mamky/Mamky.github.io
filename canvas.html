@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas1</title>
+    <style>
+        canvas {
+            display: block;
+            border: 1px solid;
+            margin: auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Note: Set the width and height using HTML attributes, not CSS -->
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Fill the entire background with grey
+        ctx.fillStyle = 'grey';
+        ctx.fillRect(0, 0, 400, 400);
+
+        // Black rectangle
+        ctx.fillStyle = "black";
+        ctx.fillRect(125, 175, 150, 120);
+
+        // Green rectangle
+        ctx.fillStyle = "green";
+        ctx.fillRect(125, 320, 150, 150);
+
+        // Brown rectangle
+        ctx.fillStyle = "brown";
+        ctx.fillRect(150, 200, 100, 100);
+
+        // White rectangle (left eye base)
+        ctx.fillStyle = "white";
+        ctx.fillRect(160, 225, 25, 25);
+
+        // Black rectangle (left eye pupil)
+        ctx.fillStyle = "black";
+        ctx.fillRect(165, 230, 20, 20);
+
+        // White rectangle (right eye base)
+        ctx.fillStyle = "white";
+        ctx.fillRect(215, 225, 25, 25);
+
+        // Black rectangle (right eye pupil)
+        ctx.fillStyle = "black";
+        ctx.fillRect(215, 230, 20, 20);
+
+        // red rectangle (mouth)
+        ctx.fillStyle = "#6b353c";
+        ctx.fillRect(170, 265, 60, 10);
+        ctx.fillRect(180,275,40,10);
+
+        // Brown rectangle (left arm)
+        ctx.fillStyle = "brown";
+        ctx.fillRect(135, 225, 20, 30);
+
+        // Brown rectangle (right arm)
+        ctx.fillStyle = "brown";
+        ctx.fillRect(245, 225, 20, 30);
+
+        // Black rectangle (top of body)
+        ctx.fillStyle = "black";
+        ctx.fillRect(125, 175, 150, 35);
+
+        // Brown rectangle (legs)
+        ctx.fillStyle = "brown";
+        ctx.fillRect(165, 300, 70, 20);
+    </script>
+</body>
+</html>
