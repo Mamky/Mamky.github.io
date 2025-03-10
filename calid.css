@@ -123,7 +123,7 @@ header,body{
 #item9
 {
 	background-color:wheat;
-	grid-column:3/5;
+	grid-column:3/4;
 	grid-row:3;
 	text-align:center;
 	margin-top:5px
@@ -154,4 +154,21 @@ header,body{
         grid-row:1;
         text-align:center;
         margin-top:5px
+}
+#item12
+{
+	background-color:wheat;
+        grid-column:2/3;
+        grid-row:3;
+        text-align:center;
+        margin-top:5px
+
+}
+#item13{
+	background-color:wheat;
+        grid-column:4/5;
+        grid-row:3;
+        text-align:center;
+        margin-top:5px
+
 }
