@@ -19,13 +19,26 @@ header,body{
 }
 
 
-#grid{
-	display:grid;
-	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	height:80vh;
-	gap:10px;		
-	
+#grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 80vh;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    #grid {
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    #grid {
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+    }
 }
 
 #item11{
