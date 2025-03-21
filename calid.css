@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
 p,h1,ul,a{
-	color:rosybrown;
+	color:#3d2424;
 }
 h1{
 	font-family: Arial, Helvetica, sans-serif;
@@ -10,8 +10,8 @@ p,ul,a{
 	font-family: "Caveat", serif;  
 }
 
-ul,img,h1,p{
-	border:2px solid rosybrown;	
+ul,img,h1,p,q{
+	border:2px solid #3d2424;	
 	
 }
 header,body{
@@ -104,7 +104,7 @@ header,body{
 	grid-row:1;
 	text-align:center;
 	font-size:3em;
-	border:2px solid rosybrown;
+	border:2px solid #3d2424;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	transition: background-color 0.3s ease-in-out;
@@ -116,7 +116,7 @@ header,body{
 	grid-row:1;
 	text-align:center;
 	font-size:3em;
-	border:2px solid rosybrown;
+	border:2px solid #3d2424;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	transition: background-color 0.3s ease-in-out;
