@@ -58,4 +58,5 @@ We'll use this to inform our study plan for the test.
  
 
 ## Study Plan
-
+I worked on aria roles and drop down menus because they are my weakest skills
+<a href="https://mamky.github.io/exampre.html">website</a>
