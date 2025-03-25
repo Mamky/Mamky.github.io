@@ -58,4 +58,6 @@ We'll use this to inform our study plan for the test.
  
 
 ## Study Plan
-
+| Utilize ARIA roles (role), states, and properties (aria-expanded, aria-checked, aria-hidden) to make web content more accessible.|
+| Create dropdown menus with select and option tags.|
+<a href=""</a>
