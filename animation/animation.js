@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let x=0;
 let y=0;
 let dx=5;
-
+let dy=1;
 //define functions
 function drawRect(x,y) {
     console.log("drawing rect");
@@ -20,11 +20,18 @@ function animate() {
     // TODO: Add some code here 
     //  that will change the rectangle's position
 x=x+dx;
-y=y+1;
+y=y+dy;
 if(x > 350){
     dx=dx*-1;
-    x=0;
-    y=0;
+}
+if(x < 0){
+    dx=dx*-1;
+}
+if(y > 350){
+    dy=dy*-1;
+}
+if(y < 0){
+    dy=dy*-1;
 }
     requestAnimationFrame(animate);
 }
