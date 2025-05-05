@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Shooting Game</title>
+    <style>
+    
+        canvas {
+            border: 3px solid #B22222;
+            display: block;
+            margin: auto;
+            background: linear-gradient(to bottom, #FF0000, #FFFFFF);
+        }
+    </style>
+</head>
+<body>
+  
+    <canvas id="gameCanvas" width="500" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Draw backdrop
+        function drawBackdrop() {
+            for (let i = 0; i < canvas.width; i += 40) {
+                ctx.fillStyle = i % 80 === 0 ? "#FF0000" : "#FFFFFF";
+                ctx.fillRect(i, 0, 40, 100);
+            }
+        }
+
+        // Draw targets
+        function drawTargets() {
+            ctx.fillStyle = "#FF0000";
+            ctx.beginPath();
+            ctx.arc(150, 180, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = "#FFFFFF";
+            ctx.beginPath();
+            ctx.arc(350, 180, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        // Draw gun (basic)
+        function drawGun() {
+            ctx.fillStyle = "#000000";
+
+            // Barrel
+            ctx.fillRect(200, 230, 100, 15);
+
+            // Grip
+            ctx.fillRect(220, 245, 30, 40);
+        }
+
+        // Draw everything
+        function drawGame() {
+            drawBackdrop();
+            drawTargets();
+            drawGun();
+        }
+
+        drawGame();
+    </script>
+</body>
+</html>
