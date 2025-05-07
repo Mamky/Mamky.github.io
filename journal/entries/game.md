@@ -23,4 +23,4 @@ A **top-down zombie survival shooter** set inside a house.
 
 ## Concept
 
-[Here is the concept](mamky.github.io/game/concept.html/)
+[Here is the concept](mamky.github.io/game/concept.html)
