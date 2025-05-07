@@ -1,67 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Simple Shooting Game</title>
+    <title>Zombie Survival House</title>
     <style>
-    
+        body {
+            text-align: center;
+            background-color: #1e1e1e;
+            color: white;
+        }
         canvas {
-            border: 3px solid #B22222;
-            display: block;
-            margin: auto;
-            background: linear-gradient(to bottom, #FF0000, #FFFFFF);
+            border: 2px solid white;
+            background-color: #c4a484; /* Light brown floor */
         }
     </style>
 </head>
 <body>
-  
-    <canvas id="gameCanvas" width="500" height="300"></canvas>
+
+    
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
 
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
 
-        // Draw backdrop
-        function drawBackdrop() {
-            for (let i = 0; i < canvas.width; i += 40) {
-                ctx.fillStyle = i % 80 === 0 ? "#FF0000" : "#FFFFFF";
-                ctx.fillRect(i, 0, 40, 100);
-            }
-        }
+        // Player (circle)
+        const player = { x: 400, y: 300, radius: 20 };
 
-        // Draw targets
-        function drawTargets() {
-            ctx.fillStyle = "#FF0000";
+        // Enemy (zombie)
+        const zombie = { x: 600, y: 350, width: 40, height: 50 };
+
+        // Gun properties
+        const gun = { width: 30, height: 10, offsetX: 20, offsetY: 0 };
+
+        // Walls for the house (dark brown)
+        const walls = [
+            { x: 50, y: 50, width: 700, height: 20 }, // Top wall
+            { x: 50, y: 530, width: 700, height: 20 }, // Bottom wall
+            { x: 50, y: 50, width: 20, height: 500 }, // Left wall
+            { x: 730, y: 50, width: 20, height: 500 } // Right wall
+        ];
+
+        // Calculate gun angle towards zombie
+        const angle = Math.atan2(zombie.y - player.y, zombie.x - player.x);
+
+        // Draw the static scene
+        function drawStaticScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw walls
+            ctx.fillStyle = "#6b4423"; // Dark brown color
+            walls.forEach(wall => ctx.fillRect(wall.x, wall.y, wall.width, wall.height));
+
+            // Draw player
+            ctx.fillStyle = "blue";
             ctx.beginPath();
-            ctx.arc(150, 180, 20, 0, Math.PI * 2);
+            ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
             ctx.fill();
-            ctx.stroke();
 
-            ctx.fillStyle = "#FFFFFF";
-            ctx.beginPath();
-            ctx.arc(350, 180, 20, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
+            // Draw gun attached to player pointing at zombie
+            ctx.save();
+            ctx.translate(player.x, player.y);
+            ctx.rotate(angle);
+            ctx.fillStyle = "black";
+            ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
+            ctx.restore();
+
+            // Draw zombie
+            ctx.fillStyle = "green";
+            ctx.fillRect(zombie.x - zombie.width / 2, zombie.y - zombie.height / 2, zombie.width, zombie.height);
         }
 
-        // Draw gun (basic)
-        function drawGun() {
-            ctx.fillStyle = "#000000";
-
-            // Barrel
-            ctx.fillRect(200, 230, 100, 15);
-
-            // Grip
-            ctx.fillRect(220, 245, 30, 40);
-        }
-
-        // Draw everything
-        function drawGame() {
-            drawBackdrop();
-            drawTargets();
-            drawGun();
-        }
-
-        drawGame();
+        drawStaticScene();
     </script>
+
 </body>
 </html>

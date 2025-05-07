@@ -12,7 +12,7 @@ const player = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: 20,
-    speed: 14,
+    speed: 10,
     angle: 0
 };
 
@@ -20,7 +20,7 @@ const player = {
 const gun = {
     width: 30,
     height: 10,
-    offsetX: 30, // Position offset relative to player
+    offsetX: 20, // Position offset relative to player
     offsetY: 0
 };
 
@@ -31,13 +31,14 @@ const bullets = [];
 const enemy = {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    width: 40,
+    width: 35,
     height: 40,
-    speed: 10
+    speed: 5
 };
 
 // Track mouse position for gun rotation
 const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
 window.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - rect.left;
@@ -63,6 +64,7 @@ window.addEventListener("mousedown", (event) => {
 
 // Player movement (WASD keys)
 const keys = {};
+
 window.addEventListener("keydown", (event) => keys[event.key] = true);
 window.addEventListener("keyup", (event) => keys[event.key] = false);
 
@@ -128,7 +130,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw player (circle)
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "wheat";
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
@@ -137,7 +139,7 @@ function draw() {
     ctx.save();
     ctx.translate(player.x, player.y);
     ctx.rotate(player.angle);
-    ctx.fillStyle = "gray";
+    ctx.fillStyle = "black";
     ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
     ctx.restore();
 
@@ -146,7 +148,7 @@ function draw() {
     ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
 
     // Draw bullets
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "gray";
     bullets.forEach(bullet => {
         ctx.beginPath();
         ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
@@ -154,9 +156,9 @@ function draw() {
     });
 
     // Display score
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "black";
     ctx.font = "20px Arial";
-    ctx.fillText("Score: " + score, 10, 30);
+    ctx.fillText("Score: " + score, 10, 20);
 }
 
 // Game loop
@@ -170,4 +172,5 @@ function gameLoop() {
     }
     requestAnimationFrame(gameLoop);
 }
+
 gameLoop();
