@@ -10,12 +10,21 @@ const player = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: 20,
-    speed: 5,
-    angle: 0
+    speed: 5
 };
 
+// Gun stuff (attached to player)
+const gun = {
+    width: 30,
+    height: 10,
+    offsetX: 20,
+    offsetY: 0
+};
 
-// Enemy (green block that follows the player(zombie))
+// Bullets array
+const bullets = [];
+
+// Enemy (green zombie that follows the player)
 const enemy = {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -24,7 +33,7 @@ const enemy = {
     speed: 2
 };
 
-// Track mouse position for future gun movement
+// Track mouse position for gun movement
 const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
 
 window.addEventListener("mousemove", (event) => {
@@ -36,7 +45,21 @@ window.addEventListener("mousemove", (event) => {
     player.angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
 });
 
-// Player movement (WASD keys)
+// Shoot bullet on left mouse click
+window.addEventListener("mousedown", (event) => {
+    if (event.button === 0) {
+        const speed = 10;
+        bullets.push({
+            x: player.x + Math.cos(player.angle) * gun.offsetX,
+            y: player.y + Math.sin(player.angle) * gun.offsetX,
+            velocityX: Math.cos(player.angle) * speed,
+            velocityY: Math.sin(player.angle) * speed,
+            radius: 5
+        });
+    }
+});
+
+// Player movement WASD
 const keys = {};
 
 window.addEventListener("keydown", (event) => keys[event.key] = true);
@@ -78,6 +101,27 @@ function checkCollision() {
     }
 }
 
+// bullets get updated
+function updateBullets() {
+    bullets.forEach((bullet, index) => {
+        bullet.x += bullet.velocityX;
+        bullet.y += bullet.velocityY;
+
+        if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
+            bullets.splice(index, 1);
+        }
+
+        // Bullet collision with enemy
+        const dist = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+        if (dist < enemy.width / 2) {
+            bullets.splice(index, 1);
+            score += 10;
+            enemy.x = Math.random() * canvas.width;
+            enemy.y = Math.random() * canvas.height;
+        }
+    });
+}
+
 // Draw everything
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -88,9 +132,25 @@ function draw() {
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
 
+    // Draw gun (attached to player)
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    ctx.rotate(player.angle);
+    ctx.fillStyle = "black";
+    ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
+    ctx.restore();
+
     // Draw enemy (zombie)
     ctx.fillStyle = "green";
     ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
+
+    // Draw bullets
+    ctx.fillStyle = "gray";
+    bullets.forEach(bullet => {
+        ctx.beginPath();
+        ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+        ctx.fill();
+    });
 
     // Display score
     ctx.fillStyle = "black";
@@ -103,6 +163,7 @@ function gameLoop() {
     if (gameRunning) {
         movePlayer();
         updateEnemy();
+        updateBullets();
         checkCollision();
         draw();
     }
