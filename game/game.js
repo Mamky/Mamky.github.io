@@ -1,7 +1,6 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-
 let gameRunning = true;
 let score = 0;
 
@@ -13,7 +12,7 @@ const player = {
     speed: 5
 };
 
-// Gun stuff (attached to player)
+// Gun (attached to player)
 const gun = {
     width: 30,
     height: 10,
@@ -24,14 +23,35 @@ const gun = {
 // Bullets array
 const bullets = [];
 
-// Enemy (green zombie that follows the player)
-const enemy = {
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    width: 35,
-    height: 40,
-    speed: 2
-};
+// Enemies array
+const enemies = [];
+
+// Makes enemies come from the canvas ends
+function spawnEnemy() {
+    const edge = Math.floor(Math.random() * 4); // 0 = top, 1 = bottom, 2 = left, 3 = right
+    let enemy = { width: 35, height: 40, speed: 2 };
+
+    if (edge === 0) { // Top edge
+        enemy.x = Math.random() * canvas.width;
+        enemy.y = -enemy.height;
+    } else if (edge === 1) { // Bottom edge
+        enemy.x = Math.random() * canvas.width;
+        enemy.y = canvas.height + enemy.height;
+    } else if (edge === 2) { // Left edge
+        enemy.x = -enemy.width;
+        enemy.y = Math.random() * canvas.height;
+    } else { // Right edge
+        enemy.x = canvas.width + enemy.width;
+        enemy.y = Math.random() * canvas.height;
+    }
+
+    enemies.push(enemy);
+}
+
+// Spawn initial enemies
+for (let i = 0; i < 5; i++) {
+    spawnEnemy();
+}
 
 // Track mouse position for gun movement
 const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
@@ -41,7 +61,7 @@ window.addEventListener("mousemove", (event) => {
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
 
-    // angle between player and mouse
+    // Angle between player and mouse
     player.angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
 });
 
@@ -72,53 +92,70 @@ function movePlayer() {
     if (keys["d"]) player.x += player.speed;
 }
 
-// enemy follows player
-function updateEnemy() {
-    const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
-    enemy.x += Math.cos(angle) * enemy.speed;
-    enemy.y += Math.sin(angle) * enemy.speed;
+// Enemies follow player and avoid collision
+function updateEnemies() {
+    enemies.forEach((enemy, index) => {
+        const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
+        enemy.x += Math.cos(angle) * enemy.speed;
+        enemy.y += Math.sin(angle) * enemy.speed;
+
+        // Avoid collisions with other enemies
+        enemies.forEach((otherEnemy, otherIndex) => {
+            if (index !== otherIndex) {
+                const dist = Math.hypot(enemy.x - otherEnemy.x, enemy.y - otherEnemy.y);
+                if (dist < enemy.width) {
+                    enemy.x -= Math.cos(angle) * enemy.speed;
+                    enemy.y -= Math.sin(angle) * enemy.speed;
+                }
+            }
+        });
+    });
 }
 
-// Check collision between player and enemy
-function checkCollision() {
-    let player_min_x = player.x - player.radius;
-    let player_max_x = player.x + player.radius;
-    let player_min_y = player.y - player.radius;
-    let player_max_y = player.y + player.radius;
+// Check collision between player and enemies
+function checkCollisions() {
+    enemies.forEach(enemy => {
+        let player_min_x = player.x - player.radius;
+        let player_max_x = player.x + player.radius;
+        let player_min_y = player.y - player.radius;
+        let player_max_y = player.y + player.radius;
 
-    let enemy_min_x = enemy.x - enemy.width / 2;
-    let enemy_max_x = enemy.x + enemy.width / 2;
-    let enemy_min_y = enemy.y - enemy.height / 2;
-    let enemy_max_y = enemy.y + enemy.height / 2;
+        let enemy_min_x = enemy.x - enemy.width / 2;
+        let enemy_max_x = enemy.x + enemy.width / 2;
+        let enemy_min_y = enemy.y - enemy.height / 2;
+        let enemy_max_y = enemy.y + enemy.height / 2;
 
-    if (
-        enemy_max_y > player_min_y &&
-        enemy_min_y < player_max_y &&
-        enemy_max_x > player_min_x &&
-        enemy_min_x < player_max_x
-    ) {
-        gameRunning = false;
-    }
+        if (
+            enemy_max_y > player_min_y &&
+            enemy_min_y < player_max_y &&
+            enemy_max_x > player_min_x &&
+            enemy_min_x < player_max_x
+        ) {
+            gameRunning = false;
+        }
+    });
 }
 
-// bullets get updated
+// Bullets get updated
 function updateBullets() {
-    bullets.forEach((bullet, index) => {
+    bullets.forEach((bullet, bulletIndex) => {
         bullet.x += bullet.velocityX;
         bullet.y += bullet.velocityY;
 
         if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
-            bullets.splice(index, 1);
+            bullets.splice(bulletIndex, 1);
         }
 
-        // Bullet collision with enemy
-        const dist = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
-        if (dist < enemy.width / 2) {
-            bullets.splice(index, 1);
-            score += 10;
-            enemy.x = Math.random() * canvas.width;
-            enemy.y = Math.random() * canvas.height;
-        }
+        // Bullet collision with enemies
+        enemies.forEach((enemy, enemyIndex) => {
+            const dist = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+            if (dist < enemy.width / 2) {
+                bullets.splice(bulletIndex, 1);
+                score += 10;
+                enemies.splice(enemyIndex, 1); // Remove defeated enemy
+                spawnEnemy(); // Spawn a new enemy from edges
+            }
+        });
     });
 }
 
@@ -140,9 +177,11 @@ function draw() {
     ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
     ctx.restore();
 
-    // Draw enemy (zombie)
+    // Draw enemies (zombies)
     ctx.fillStyle = "green";
-    ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
+    enemies.forEach(enemy => {
+        ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
+    });
 
     // Draw bullets
     ctx.fillStyle = "gray";
@@ -154,7 +193,7 @@ function draw() {
 
     // Display score
     ctx.fillStyle = "black";
-     ctx.font = "20px 'Press Start 2P', cursive";
+    ctx.font = "20px 'Press Start 2P', cursive";
     ctx.fillText("Score: " + score, 10, 20);
 }
 
@@ -162,9 +201,9 @@ function draw() {
 function gameLoop() {
     if (gameRunning) {
         movePlayer();
-        updateEnemy();
+        updateEnemies();
         updateBullets();
-        checkCollision();
+        checkCollisions();
         draw();
     }
     requestAnimationFrame(gameLoop);
