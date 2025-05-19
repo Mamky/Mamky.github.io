@@ -31,8 +31,8 @@ function spawnWave() {
     for (let i = 0; i < 5; i++) {
         spawnEnemy(2); // Regular zombies
     }
-    for (let i = 2; i < 2; i++) {
-        spawnEnemy(10); // Fast zombies
+    for (let i = 0; i < 2; i++) {
+        spawnEnemy(5); // Fast zombies
     }
 }
 
