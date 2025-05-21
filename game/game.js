@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 
 let gameRunning = true;
 let score = 0;
+let gameOver = false;
 
 // Player (circle)
 const player = {
@@ -26,13 +27,17 @@ const bullets = [];
 // Enemies array
 const enemies = [];
 
+// Background image
+const backgroundImage = new Image();
+backgroundImage.src = "background.jpg";
+
 // Spawn wave with regular and fast zombies
 function spawnWave() {
     for (let i = 0; i < 5; i++) {
         spawnEnemy(2); // Regular zombies
     }
     for (let i = 0; i < 2; i++) {
-        spawnEnemy(5); // Fast zombies
+        spawnEnemy(4); // Fast zombies
     }
 }
 
@@ -160,6 +165,9 @@ function updateBullets() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Draw background image
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
     // Draw player (human)
     ctx.fillStyle = "wheat";
     ctx.beginPath();
@@ -176,7 +184,7 @@ function draw() {
 
     // Draw enemies (zombies)
     ctx.fillStyle = "green";
-    ctx.strokeStyle = "black"; // Border color
+    ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
     enemies.forEach(enemy => {
         ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
