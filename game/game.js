@@ -27,16 +27,16 @@ const bullets = [];
 // Enemies array
 const enemies = [];
 
-// Background image
+// Background
 const backgroundImage = new Image();
 backgroundImage.src = "background.jpg";
 
-// Spawn wave with regular and fast zombies
+// Spawn wave with both zombie types
 function spawnWave() {
     for (let i = 0; i < 5; i++) {
         spawnEnemy(2); // Regular zombies
     }
-    for (let i = 0; i < 2; i++) {
+    for (let i = 2; i < 4; i++) {
         spawnEnemy(4); // Fast zombies
     }
 }
@@ -65,7 +65,7 @@ function spawnEnemy(speed) {
     }, 500);
 }
 
-// Track mouse position for gun movement
+// Track mouse position for gun spin
 const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
 
 window.addEventListener("mousemove", (event) => {
@@ -79,7 +79,7 @@ window.addEventListener("mousemove", (event) => {
 // Shoot bullet on left mouse click
 window.addEventListener("mousedown", (event) => {
     if (event.button === 0) {
-        const speed = 10;
+        const speed = 6;
         bullets.push({
             x: player.x + Math.cos(player.angle) * gun.offsetX,
             y: player.y + Math.sin(player.angle) * gun.offsetX,
@@ -90,7 +90,7 @@ window.addEventListener("mousedown", (event) => {
     }
 });
 
-// Player movement WASD with boundary checks
+// Player movement WASD with barrier
 const keys = {};
 
 window.addEventListener("keydown", (event) => keys[event.key] = true);
@@ -131,6 +131,7 @@ function checkCollisions() {
         let dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
         if (dist < player.radius + enemy.width / 2) {
             gameRunning = false;
+            gameOver = true;
         }
     });
 }
@@ -161,20 +162,50 @@ function updateBullets() {
     });
 }
 
+// game over screen
+function drawGameOverScreen() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "40px 'Press Start 2P', cursive";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+
+    ctx.font = "20px 'Press Start 2P', cursive";
+    ctx.fillText("Score: " + score, canvas.width / 2, canvas.height / 2 + 50);
+      ctx.fillText("Click Anywhere to Restart", canvas.width / 2, canvas.height / 2 + 90);
+}
+
+// Click to restart
+canvas.addEventListener("click", () => {
+    if (gameOver) restartGame();
+});
+
+function restartGame() {
+    gameRunning = true;
+    gameOver = false;
+    score = 0;
+    bullets.length = 0;
+    enemies.length = 0;
+    spawnWave();
+}
+
 // Draw everything
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw background image
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-    // Draw player (human)
+    if (gameOver==true) {
+        drawGameOverScreen();
+        return;
+    }
+
     ctx.fillStyle = "wheat";
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Draw gun (attached to player)
     ctx.save();
     ctx.translate(player.x, player.y);
     ctx.rotate(player.angle);
@@ -182,7 +213,6 @@ function draw() {
     ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
     ctx.restore();
 
-    // Draw enemies (zombies)
     ctx.fillStyle = "green";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
@@ -191,7 +221,6 @@ function draw() {
         ctx.strokeRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
     });
 
-    // Draw bullets
     ctx.fillStyle = "gray";
     bullets.forEach(bullet => {
         ctx.beginPath();
@@ -199,13 +228,12 @@ function draw() {
         ctx.fill();
     });
 
-    // Display score
     ctx.fillStyle = "black";
     ctx.font = "20px 'Press Start 2P', cursive";
     ctx.fillText("Score: " + score, 10, 20);
 }
 
-// Game loop
+// gamr loop
 function gameLoop() {
     if (gameRunning) {
         movePlayer();
