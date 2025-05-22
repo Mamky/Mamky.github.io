@@ -174,12 +174,14 @@ function drawGameOverScreen() {
 
     ctx.font = "20px 'Press Start 2P', cursive";
     ctx.fillText("Score: " + score, canvas.width / 2, canvas.height / 2 + 50);
-      ctx.fillText("Click Anywhere to Restart", canvas.width / 2, canvas.height / 2 + 90);
+      ctx.fillText("Click R to Restart", canvas.width / 2, canvas.height / 2 + 90);
 }
 
 // Click to restart
-canvas.addEventListener("click", () => {
-    if (gameOver) restartGame();
+window.addEventListener("keydown", (event) => {
+    if (gameOver && event.key.toLowerCase() === "r") {
+        restartGame();
+    }
 });
 
 function restartGame() {
@@ -221,7 +223,7 @@ function draw() {
         ctx.strokeRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
     });
 
-    ctx.fillStyle = "gray";
+    ctx.fillStyle = "rgb(169, 169, 169)";
     bullets.forEach(bullet => {
         ctx.beginPath();
         ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
