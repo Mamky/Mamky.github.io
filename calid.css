@@ -9,9 +9,9 @@ h1{
 p,ul,a{
 	font-family: "Caveat", serif;  
 }
-
-ul,img,h1,p,q{
-	border:2px solid #3d2424;	
+ul,img,h1,p{
+	border:2px solid #3d2424;
+	text-align:center;
 	
 }
 header,body{
@@ -86,17 +86,8 @@ header,body{
 	margin-top: 30px;
 	margin-bottom:30px;
 	font-size:2em;
-
 }
-#item1
-{
-	background-color:wheat;
-	grid-column: 1/5;
-	grid-row:4;
-	text-align:center;
-	font-size:18px;
 
-}
 #item6
 {
 	background-color:wheat;
