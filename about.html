@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Homepage</title>
+    <title>About</title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" >
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -25,7 +25,7 @@
         h1 {
             text-align: center;
             color: #3d2424;
-            font-size: 6rem;
+            font-size: 4rem;
             padding:0;
             border: 2px solid #3d2424;
             border-radius: 8px;
@@ -63,14 +63,9 @@
             font-size: 1.1rem;
             transition: color 0.2s;
         }
-        .monkey {
-            grid-column:3/5;
-            grid-row: 2/5;
-
-        }
         .main-grid {
             display: grid;
-            grid-template-rows: repeat(4, 1fr);
+            grid-template-rows: repeat(2, auto) repeat(3, 1fr) repeat(2, auto);
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             padding: 2rem;
@@ -87,13 +82,30 @@
             text-align: center;
             border: 2px solid #3d2424;
         }
-        .title {
-            grid-column: 1 / 3;
+        .middle-card {
+            grid-column: 2 / 4;
             grid-row: 2 / 4;
+        }
+        .middle-card img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid #3d2424;
+            border-radius: 8px;
+            background: #fff8e1;
+            max-width: 100%;
+            height: auto;
+        }
+        .top-row {
+            grid-column: 1 / 5;
         }
         .bottom-row {
             grid-column: 1 / 5;
-            grid-row: 4 / 5;
+            
+        }
+        ul {
+            display: inline-block;
+            text-align: left;
         }
     </style>
 </head>
@@ -111,8 +123,43 @@
         </ul>
     </nav>
     <div class="main-grid">
-        <div class="title"><h1>Mamky</h1></div>
-        <div class="monkey"><img src="monkey.gif" alt="Monkey" style="max-width:100%; max-height:250px; border-radius:8px;"></div>
+        <div class="top-row"><h1>About Me</h1></div>
+        <div class="card">
+            <p>Hi, my name is Kidus and I'm a freshman at Arlington Tech. I do BJJ and Muay Thai, and I love to play video games.</
+            </p>
+            <br>
+            <p>I love this quote from Alan Watts: <q>A person who thinks all the time has nothing to think about except thoughts</q>, 
+            which shows that sometimes you shouldn't think.
+            </p>
+        </div>
+        <div class="middle-card">
+            <img 
+            src="images/Selfiemed.jpg"
+            alt="Selfie"
+            srcset="images/Selfiesmall.jpg 480w, 
+                images/Selfiemed.jpg 800w, 
+                images/Selfielarge.jpg 1200w"
+            sizes="(max-width: 480px) 95vw,
+                   (max-width: 800px) 45vw,
+                   30vw">
+        </div>
+        <div class="card">
+            <p>I am going to Arlington Tech for these reasons:</p>
+            <ul>
+            <li>An associate's degree in computer science</li>
+            <li>My brother recommended I go</li>
+            <li>The field trip to the building in the 8th grade</li>
+            <li>Regular high schools like Wakefield being wild</li>
+            </ul>
+        </div>
+        <div class="card">
+            <p>Call me here: <a href="tel:7034703207">703-470-3207</a></p>
+        </div>
+        <div class="card">
+            <a href="https://github.com/Mamky/Mamky.github.io">This is my repo.</a>
+            <br>
+            <a href="https://drive.google.com/file/d/1HJ4aYcB3iENdfy3dqOjJB4_Kh2h6M2sX/view?usp=sharing">This is my WDE certification.</a>
+        </div>
         <footer class="card bottom-row"></footer>
     </div>
 </body>
