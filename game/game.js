@@ -34,10 +34,10 @@ backgroundImage.src = "background.jpg";
 // Spawn wave with both zombie types
 function spawnWave() {
     for (let i = 0; i < 5; i++) {
-        spawnEnemy(2); // Regular zombies
+        spawnEnemy(1); // Regular zombies
     }
     for (let i = 2; i < 4; i++) {
-        spawnEnemy(4); // Fast zombies
+        spawnEnemy(3); // Fast zombies
     }
 }
 
@@ -47,10 +47,10 @@ function spawnEnemy(speed) {
         const edge = Math.floor(Math.random() * 4);
         let enemy = { width: 35, height: 40, speed: speed };
 
-        if (edge === 0) { 
+        if (edge == 0) { 
             enemy.x = Math.random() * canvas.width;
             enemy.y = -enemy.height;
-        } else if (edge === 1) { 
+        } else if (edge == 1) { 
             enemy.x = Math.random() * canvas.width;
             enemy.y = canvas.height + enemy.height;
         } else if (edge === 2) { 
@@ -72,19 +72,27 @@ window.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
-
-    player.angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
 });
 
 // Shoot bullet on left mouse click
 window.addEventListener("mousedown", (event) => {
-    if (event.button === 0) {
+    if (event.button == 0) {
         const speed = 6;
+        // Calculate direction from player to mouse
+        const dx = mouse.x - player.x;
+        const dy = mouse.y - player.y;
+        const length = Math.hypot(dx, dy);
+        const velocityX = (dx / length) * speed;
+        const velocityY = (dy / length) * speed;
+        // Places the bullet at the edge of the player in the direct of the mouse
+        const bulletStartX = player.x + (dx / length) * gun.offsetX;
+        const bulletStartY = player.y + (dy / length) * gun.offsetX;
+
         bullets.push({
-            x: player.x + Math.cos(player.angle) * gun.offsetX,
-            y: player.y + Math.sin(player.angle) * gun.offsetX,
-            velocityX: Math.cos(player.angle) * speed,
-            velocityY: Math.sin(player.angle) * speed,
+            x: bulletStartX,
+            y: bulletStartY,
+            velocityX: velocityX,
+            velocityY: velocityY,
             radius: 5
         });
     }
@@ -106,22 +114,26 @@ function movePlayer() {
 // Enemies follow player and avoid collisions
 function updateEnemies() {
     enemies.forEach((enemy, index) => {
-        const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
-        enemy.x += Math.cos(angle) * enemy.speed;
-        enemy.y += Math.sin(angle) * enemy.speed;
+        // Move enemy towards player
+        let dx = player.x > enemy.x ? 1 : (player.x < enemy.x ? -1 : 0);
+        let dy = player.y > enemy.y ? 1 : (player.y < enemy.y ? -1 : 0);
 
-        // Prevent zombies from overlapping
-        enemies.forEach((otherEnemy, otherIndex) => {
-            if (index !== otherIndex) {
-                const dist = Math.hypot(enemy.x - otherEnemy.x, enemy.y - otherEnemy.y);
-                if (dist < enemy.width) {
-                    // Push zombies apart slightly
-                    const pushAngle = Math.atan2(otherEnemy.y - enemy.y, otherEnemy.x - enemy.x);
-                    enemy.x -= Math.cos(pushAngle) * 2;
-                    enemy.y -= Math.sin(pushAngle) * 2;
-                }
+        // Move in x direction
+        if (dx !== 0) {
+            enemy.x += dx * enemy.speed;
+            // Prevent overshooting of enemy tracking
+            if ((dx > 0 && enemy.x > player.x) || (dx < 0 && enemy.x < player.x)) {
+            enemy.x = player.x;
             }
-        });
+        }
+        // Move in y direction
+        if (dy !== 0) {
+            enemy.y += dy * enemy.speed * 0.5;
+            // Prevent overshooting
+            if ((dy > 0 && enemy.y > player.y) || (dy < 0 && enemy.y < player.y)) {
+            enemy.y = player.y;
+            }
+        }
     });
 }
 
@@ -153,8 +165,8 @@ function updateBullets() {
                 score += 10;
                 enemies.splice(enemyIndex, 1);
 
-                // **Wave only respawns when all zombies are gone**
-                if (enemies.length === 0) {
+                // Wave only respawns when all zombies are gone
+                if (enemies.length == 0) {
                     spawnWave();
                 }
             }
@@ -179,7 +191,7 @@ function drawGameOverScreen() {
 
 // Click to restart
 window.addEventListener("keydown", (event) => {
-    if (gameOver && event.key.toLowerCase() === "r") {
+    if (gameOver && event.key.toLowerCase() == "r") {
         restartGame();
     }
 });
