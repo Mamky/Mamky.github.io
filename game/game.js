@@ -53,7 +53,7 @@ function spawnEnemy(speed) {
         } else if (edge == 1) { 
             enemy.x = Math.random() * canvas.width;
             enemy.y = canvas.height + enemy.height;
-        } else if (edge === 2) { 
+        } else if (edge == 2) { 
             enemy.x = -enemy.width;
             enemy.y = Math.random() * canvas.height;
         } else { 
@@ -64,9 +64,8 @@ function spawnEnemy(speed) {
         enemies.push(enemy);
     }, 500);
 }
-
-// Track mouse position for gun spin
-const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+// Mouse position tracking
+const mouse = { x: 0, y: 0 };
 
 window.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect();
@@ -74,19 +73,33 @@ window.addEventListener("mousemove", (event) => {
     mouse.y = event.clientY - rect.top;
 });
 
-// Shoot bullet on left mouse click
+
 window.addEventListener("mousedown", (event) => {
     if (event.button == 0) {
         const speed = 6;
         // Calculate direction from player to mouse
-        const dx = mouse.x - player.x;
-        const dy = mouse.y - player.y;
-        const length = Math.hypot(dx, dy);
-        const velocityX = (dx / length) * speed;
-        const velocityY = (dy / length) * speed;
-        // Places the bullet at the edge of the player in the direct of the mouse
-        const bulletStartX = player.x + (dx / length) * gun.offsetX;
-        const bulletStartY = player.y + (dy / length) * gun.offsetX;
+        let dx = mouse.x - player.x;
+        let dy = mouse.y - player.y;
+        // Make the direction have a length of 1, so the bullet always moves at the same speed no matter the aim
+        let length = 0;
+        if (dx < 0) {
+            length = -dx;
+        } else {
+            length = dx;
+        }
+        if (dy < 0) {
+            length = length + (-dy);
+        } else {
+            length = length + dy;
+        }
+        if (length == 0) length = 1;
+
+        let velocityX = (dx / length) * speed;
+        let velocityY = (dy / length) * speed;
+
+        // Place bullet at the edge of the player's body in the direction of the mouse
+        let bulletStartX = player.x + (dx / length) * gun.offsetX;
+        let bulletStartY = player.y + (dy / length) * gun.offsetX;
 
         bullets.push({
             x: bulletStartX,
@@ -115,13 +128,17 @@ function movePlayer() {
 function updateEnemies() {
     enemies.forEach((enemy, index) => {
         // Move enemy towards player
-        let dx = player.x > enemy.x ? 1 : (player.x < enemy.x ? -1 : 0);
-        let dy = player.y > enemy.y ? 1 : (player.y < enemy.y ? -1 : 0);
+        let dx = 0;
+        if (player.x > enemy.x) dx = 1;
+        if (player.x < enemy.x) dx = -1;
+        let dy = 0;
+        if (player.y > enemy.y) dy = 1;
+        if (player.y < enemy.y) dy = -1;
 
         // Move in x direction
         if (dx !== 0) {
             enemy.x += dx * enemy.speed;
-            // Prevent overshooting of enemy tracking
+            // Prevent overshoots of enemy tracking
             if ((dx > 0 && enemy.x > player.x) || (dx < 0 && enemy.x < player.x)) {
             enemy.x = player.x;
             }
@@ -129,7 +146,7 @@ function updateEnemies() {
         // Move in y direction
         if (dy !== 0) {
             enemy.y += dy * enemy.speed * 0.5;
-            // Prevent overshooting
+            // Prevent overshoots of movement
             if ((dy > 0 && enemy.y > player.y) || (dy < 0 && enemy.y < player.y)) {
             enemy.y = player.y;
             }
@@ -140,8 +157,11 @@ function updateEnemies() {
 // Check collision between player and enemies
 function checkCollisions() {
     enemies.forEach(enemy => {
-        let dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
-        if (dist < player.radius + enemy.width / 2) {
+        let dx = player.x - enemy.x;
+        let dy = player.y - enemy.y;
+        let distsquared = dx * dx + dy * dy;
+        let minDist = player.radius + enemy.width / 2;
+        if (distsquared < minDist * minDist) {
             gameRunning = false;
             gameOver = true;
         }
@@ -215,18 +235,13 @@ function draw() {
         return;
     }
 
+    // Draw player
     ctx.fillStyle = "wheat";
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.save();
-    ctx.translate(player.x, player.y);
-    ctx.rotate(player.angle);
-    ctx.fillStyle = "black";
-    ctx.fillRect(gun.offsetX, gun.offsetY, gun.width, gun.height);
-    ctx.restore();
-
+    // Draw enemies
     ctx.fillStyle = "green";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
@@ -235,6 +250,7 @@ function draw() {
         ctx.strokeRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
     });
 
+    // Draw bullets
     ctx.fillStyle = "rgb(169, 169, 169)";
     bullets.forEach(bullet => {
         ctx.beginPath();
