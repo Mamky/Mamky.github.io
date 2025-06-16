@@ -124,5 +124,6 @@ The game operates in a clear cycle, managed by a series of functions.
 *   `dealCard(target, isFaceUp)`: Deals one card from the deck to the specified `target` ('player' or 'opponent') and decides whether it should be face-up. It calls `renderCard()` to create the visual element.
 *   `renderCard(...)`: Dynamically creates the HTML for a new card and adds it to the DOM with a dealing animation.
 *   `updateUI()`: A crucial function that syncs the entire visual interface (money display, bet display, button states) with the data in the `state` object. It's called whenever the state changes.
+[Game](https://mamky.github.io/FinalProject/fp.html)
 
-THIS IS ALL AI!! On brand for the project.
+THIS IS ALL AI!! On brand for the project!
